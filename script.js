@@ -1,9 +1,9 @@
 let money = 76500,
-    income = "Фриланс",
-    addExpenses = "Бенизин, Интернет, Коммуналка",
-    deposit = true,
-    mission = 1000000,
-    period = 5;
+  income = "Фриланс",
+  addExpenses = "Бенизин, Интернет, Коммуналка",
+  deposit = true,
+  mission = 1000000,
+  period = 5;
 
 console.log(typeof money, typeof income, typeof deposit);
 
