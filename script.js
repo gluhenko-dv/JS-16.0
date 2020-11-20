@@ -4,13 +4,9 @@
 //nu += ' ';
 //
 let num = 266219,
-    prod = 1,
-    prod2 = num + '';
+    prod = 1;
 
-
-prod2.split('').reduce(((acc, I) => acc * Number.parseInt(I, 10)), 1);
-
-console.log(prod2);
+console.log(num.toString().split('').reduce(((acc, I) => acc * Number.parseInt(I, 10)), 1));
 
 while (num > 0) {
     prod *= num % 10;
