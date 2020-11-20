@@ -1,17 +1,19 @@
-let money = 76500,
-    income = "Фриланс",
-    addExpenses = "Бенизин, Интернет, Коммуналка",
-    deposit = true,
-    mission = 1000000,
-    period = 5;
+"use strict";
 
-console.log(typeof money, typeof income, typeof deposit);
+//let num = 266219;
+//nu += ' ';
+//
+let num = 266219,
+    prod = 1,
+    prod2 = num + '';
 
-console.log(addExpenses.length);
 
-console.log("Период равен " + period + " месяцев" + " Цель заработать " + mission + " рублей/долларов/гривен/юани");
+prod2.split('').reduce(((acc, I) => acc * Number.parseInt(I, 10)), 1);
 
-console.log(addExpenses.toLowerCase().split(", "));
+console.log(prod2);
 
-let budgetDay = money / 30;
-console.log(budgetDay);
+while (num > 0) {
+    prod *= num % 10;
+    num = Math.floor(num / 10);
+}
+console.log(prod);
