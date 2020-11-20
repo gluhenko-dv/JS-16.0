@@ -1,8 +1,5 @@
 "use strict";
 
-//let num = 266219;
-//nu += ' ';
-//
 let num = 266219,
     prod = 1;
 
