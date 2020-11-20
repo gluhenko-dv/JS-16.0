@@ -1,9 +1,9 @@
 "use strict";
 
-let num = 266219,
+let num = 2,
   prod = 1;
 
-console.log(num.toString().split('').reduce(((acc, i) => acc * Number.parseInt(i, 10)), 1));
+console.log(num.toString().split('').reduce((acc, i) => acc * i));
 
 while (num > 0) {
   prod *= num % 10;
