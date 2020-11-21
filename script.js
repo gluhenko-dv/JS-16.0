@@ -2,10 +2,10 @@
 
 let num = 266219,
   prod = 1;
-//1 способ
+//1 способ произведения цифр числа
 console.log(num.toString().split('').reduce((acc, i) => acc * i));
 
-//2 способ
+//2 способ произведения цифр числа
 while (num > 0) {
   prod *= num % 10;
   num = Math.floor(num / 10);
