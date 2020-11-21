@@ -1,4 +1,4 @@
-let money = 76500,
+let money = 76501,
   income = "Фриланс",
   addExpenses = "Бенизин, Интернет, Коммуналка",
   deposit = true,
@@ -13,5 +13,5 @@ console.log("Период равен " + period + " месяцев" + " Цель
 
 console.log(addExpenses.toLowerCase().split(", "));
 
-let budgetDay = money / 30;
+let budgetDay = Math.round(money / 30);
 console.log(budgetDay);
