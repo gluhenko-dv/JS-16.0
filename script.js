@@ -38,7 +38,7 @@ console.log('Массив: ' + weekdays[lang]);
 
 let namePerson = prompt('Введите имя');
 
-let result = (namePerson === 'Артем') ? 'Директор' :
+let whoIs = (namePerson === 'Артем') ? 'Директор' :
     (namePerson === 'Максим') ? 'Преподаватель' :
     'Cтудент';
-console.log('Это ', result);
+console.log('Это ', whoIs);
