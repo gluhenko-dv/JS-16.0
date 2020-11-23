@@ -3,7 +3,7 @@
 let num = 266219,
   prod = 1;
 //1 способ произведения цифр числа
-console.log(num.toString().split('').reduce((acc, i) => acc * i));
+console.log(num.toString().split('').reduce((acc, i) => acc * +i));
 
 //2 способ произведения цифр числа
 while (num > 0) {
