@@ -1,6 +1,9 @@
 'use strict';
 //Задание 1
-let lang = confirm('Если ваш язык Русский нажмите "ОК", If you languge  English press "cancel"');
+let lang = confirm('Если ваш язык Русский нажмите "ОК", If you languge  English press "cancel"'),
+    weekdays = [];
+weekdays.ru = ['Понедельник', ' Вторник', ' Среда', ' Четверг', ' Пятница', ' Суббота', ' Воскресенье'];
+weekdays.en = ['Monday', ' Tuesday', ' Wednesday', ' Thursday', ' Friday', ' Saturday', ' Sunday'];
 
 if (lang) {
     lang = 'ru';
@@ -10,26 +13,23 @@ if (lang) {
 
 if (lang === 'ru') {
     console.log('Отработал if');
-    console.log('Понедельник, Вторник, Среда, Четверг, Пятница, Суббота, Воскресенье');
+    console.log(String(weekdays.ru));
 } else {
     console.log('Отработал if');
-    console.log('Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday');
+    console.log(String(weekdays.en));
 }
 
 switch (lang) {
     case 'ru':
         console.log('Отработал switch');
-        console.log('Понедельник, Вторник, Среда, Четверг, Пятница, Суббота, Воскресенье');
+        console.log(String(weekdays.ru));
         break;
     case 'en':
         console.log('Отработал switch');
-        console.log('Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday');
+        console.log(String(weekdays.en));
         break;
 }
 
-let weekdays = [];
-weekdays.ru = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
-weekdays.en = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 console.log('Массив: ' + weekdays[lang]);
 
