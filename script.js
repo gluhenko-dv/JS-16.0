@@ -41,4 +41,4 @@ let namePerson = prompt('Введите имя');
 let result = (namePerson === 'Артем') ? 'Директор' :
     (namePerson === 'Максим') ? 'Преподаватель' :
     'Cтудент';
-console.log('res ', result);
+console.log('Это ', result);
