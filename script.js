@@ -1,4 +1,5 @@
 'use strict';
+
 let money = 76500,
     income = 'Фриланс',
     addExpenses = 'Бенизин, Интернет, Коммуналка',
