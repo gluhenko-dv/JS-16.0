@@ -3,7 +3,7 @@
 
 
 const strTransform = function(data) {
-    if (data.replace(/\d*/, '')) { // убираю все цифры, вставляю пустоту (если пусто значит не строка)
+    if (data.replace(/\d/g, '')) { // заменяю все цифры на пустоту
         data = data.trim();
         if (data.length > 30) {
             return data.substr(0, 30) + '...';
