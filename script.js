@@ -9,7 +9,7 @@ const strTransform = function(data) {
             return data;
         }
     } else {
-        alert("Ты передал не строку!!!");
+        return ('Ты передал не строку!!!');
     }
 };
 let str = prompt('Введите строку');
