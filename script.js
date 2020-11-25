@@ -51,7 +51,7 @@ const getAccumulatedMonth = function() {
 let accumulatedMonth = getAccumulatedMonth();
 
 const getTargetMonth = function() {
-    if (mission / accumulatedMonth < 0) {
+    if (mission / accumulatedMonth <= 0) {
         return ('Цель не будет достигнута');
     }
     return ('Цель будет достигнута за: ' + Math.ceil(mission / accumulatedMonth) + ' месяцев')
