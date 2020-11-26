@@ -6,7 +6,7 @@ let gameStart = function () {
     attNumber = 10,
     restart;
 
-  let gameRestart = function (restart) {
+  let gameRestart = function () {
     if (restart) {
       return gameStart();
     } else {
@@ -19,7 +19,7 @@ let gameStart = function () {
     if (attNumber <= 10 && attNumber > 1) {
       if (userNumber === null) {
         restart = confirm('Сыграем еще разок?');
-        gameRestart(restart);
+        gameRestart();
       } else if (userNumber.replace(/\d/g, '') || !userNumber) {
         alert('Введи число! А не кракозябру!!!');
         gameCheckNumber();
@@ -43,7 +43,7 @@ let gameStart = function () {
       }
     } else {
       restart = confirm('Попытки кончились! Сыграем еще разок?');
-      gameRestart(restart);
+      gameRestart();
     }
   };
   console.dir(gameCheckNumber);
