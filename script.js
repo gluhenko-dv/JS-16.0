@@ -1,22 +1,54 @@
 'use strict';
 
-let arr = [];
-//Задание 1
-for (let i = 0; i < 7; i++) {
-    arr[i] = prompt('Введите любое многозначное число');
-    if (arr[i][0] === '2' || arr[i][0] === '4') {
-        console.log(arr[i]);
-    }
-}
+let gameStart = function() {
+    let gameNumber = Math.floor((Math.random() * 100) + 1),
+        userNumber,
+        attNumber = 10;
+    let restart;
 
-//Задание 2
-param:
-    for (let i = 2; i <= 100; i++) {
-        for (let j = 2; j < i; j++) {
-            if (i % j === 0) {
-                continue param;
-            }
+    let restartGame = function(restart) {
+        if (restart) {
+            return gameStart();
+        } else {
+            return alert('C тобой было круто! Пока-пока!');
         }
-        console.log(i + ' - просто число, делится только на 1 и на ' + i);
+    };
 
-    }
+    let gameCheckNumber = function() {
+        userNumber = prompt('Угадай число от 1 до 100');
+        if (attNumber <= 10 && attNumber > 1) {
+            if (userNumber === null) {
+                restart = confirm('Сыграем еще разок?');
+                restartGame(restart);
+            } else if (userNumber.replace(/\d/g, '')) {
+                alert('Введи число! А не кракозябру!!!');
+                gameCheckNumber();
+            } else if (userNumber > 100) {
+                alert('Ты не борщи! Твоё число больше 100! Давай по новой!');
+                gameCheckNumber();
+            } else if (userNumber < 1) {
+                alert('Ну ты чего? Твоё число меньше 1! Я так не играю! Давай по новой!');
+                gameCheckNumber();
+            } else if (userNumber > gameNumber) {
+                attNumber--;
+                alert('Многовато предлагаешь! Число меньше! Кол-во попыток: ' + attNumber);
+                gameCheckNumber();
+            } else if (userNumber < gameNumber) {
+                attNumber--;
+                alert('Маловато! Я загадал число больше! Кол-во попыток: ' + attNumber);
+                gameCheckNumber();
+            } else {
+                alert('ОПА! А ты угадал!!! Моё почтение :) Еще разок?');
+                gameStart();
+            }
+        } else {
+            restart = confirm('Попытки кончились! Сыграем еще разок?');
+            restartGame(restart);
+        }
+    };
+
+    gameCheckNumber();
+
+};
+
+gameStart();
