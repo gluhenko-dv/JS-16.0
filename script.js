@@ -20,7 +20,7 @@ let gameStart = function() {
             if (userNumber === null) {
                 restart = confirm('Сыграем еще разок?');
                 gameRestart(restart);
-            } else if (userNumber.replace(/\d/g, '')) {
+            } else if (userNumber.replace(/\d/g, '') || !userNumber) {
                 alert('Введи число! А не кракозябру!!!');
                 gameCheckNumber();
             } else if (userNumber > 100) {
