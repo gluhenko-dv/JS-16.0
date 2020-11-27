@@ -1,54 +1,85 @@
 'use strict';
+let money = 76500;
+const isNumber = function (n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  },
+  start = function () {
+    do {
+      money = prompt('Ваш месячный доход');
+    }
+    while (!isNumber(money));
+  };
 
-let gameStart = function() {
-    let gameNumber = Math.floor((Math.random() * 100) + 1),
-        userNumber,
-        attNumber = 10,
-        restart;
+start();
 
-    let gameRestart = function(restart) {
-        if (restart) {
-            return gameStart();
-        } else {
-            return alert('C тобой было круто! Пока-пока!');
-        }
-    };
+let appData = {
+  income: {},
+  addIncome: [],
+  expenses: {},
+  expensesMonth: 0,
+  addExpenses: [],
+  deposit: false,
+  mission: 50000,
+  period: 3,
+  budget: +money,
+  budgetDay: 0,
+  budgetMonth: 0,
+  accumulatedMonth: 0,
+  asking: function () {
+    let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Бенизин, Интернет, Коммуналка');
+    appData.addExpenses = addExpenses.toLowerCase().split(", ");
+    appData.deposit = confirm('Есть ли у вас депозит в банке?');
+    let expensesName, expensesAmount;
+    for (let i = 0; i < 2; i++) {
+      expensesName = prompt('Введите статью расходов');
+      expensesAmount = +prompt('Во сколько это обойдется?');
+      while (!isNumber(expensesAmount)) {
+        expensesAmount = +prompt('Во сколько это обойдется?');
+      }
+      appData.expenses[expensesName] = expensesAmount;
+    }
 
-    let gameCheckNumber = function() {
-        userNumber = prompt('Угадай число от 1 до 100');
-        if (attNumber <= 10 && attNumber > 1) {
-            if (userNumber === null) {
-                restart = confirm('Сыграем еще разок?');
-                gameRestart(restart);
-            } else if (userNumber.replace(/\d/g, '') || !userNumber) {
-                alert('Введи число! А не кракозябру!!!');
-                gameCheckNumber();
-            } else if (userNumber > 100) {
-                alert('Ты не борщи! Твоё число больше 100! Давай по новой!');
-                gameCheckNumber();
-            } else if (userNumber < 1) {
-                alert('Ну ты чего? Твоё число меньше 1! Я так не играю! Давай по новой!');
-                gameCheckNumber();
-            } else if (userNumber > gameNumber) {
-                attNumber--;
-                alert('Многовато предлагаешь! Число меньше! Кол-во попыток: ' + attNumber);
-                gameCheckNumber();
-            } else if (userNumber < gameNumber) {
-                attNumber--;
-                alert('Маловато! Я загадал число больше! Кол-во попыток: ' + attNumber);
-                gameCheckNumber();
-            } else {
-                alert('ОПА! А ты угадал!!! Моё почтение :) Еще разок?');
-                gameStart();
-            }
-        } else {
-            restart = confirm('Попытки кончились! Сыграем еще разок?');
-            gameRestart(restart);
-        }
-    };
-
-    gameCheckNumber();
-
+  },
+  getExpensesMonth: function () {
+    for (let key in appData.expenses) {
+      appData.expensesMonth += appData.expenses[key];
+    }
+    return appData.expensesMonth;
+  },
+  getBudget: function () {
+    appData.budgetMonth = appData.budget - appData.expensesMonth;
+    appData.budgetDay = appData.budgetMonth / 30;
+    return appData.budgetDay;
+  },
+  getTargetMonth: function () {
+    appData.getBudget();
+    if (appData.mission / appData.budgetDay <= 0) {
+      return ('Цель не будет достигнута');
+    }
+    return ('Цель будет достигнута за: ' + Math.ceil(appData.mission / appData.budgetDay) + ' месяцев');
+  },
+  getStatusIncome: function (data) {
+    if (data >= 1200) {
+      return ('У вас высокий уровень дохода');
+    } else if (data >= 600 && data < 1200) {
+      return ('У вас средний уровень дохода');
+    } else if (data < 600 && data > 0) {
+      return ('К сожалению у вас уровень дохода ниже среднего');
+    } else {
+      return ('Что то пошло не так');
+    }
+  }
 };
 
-gameStart();
+appData.asking();
+
+console.log('Расходы за месяц: ' + appData.getExpensesMonth());
+
+console.log(appData.getTargetMonth());
+
+console.log(appData.getStatusIncome(appData.budgetDay));
+
+
+for (let key in appData){
+  console.log('Ключ ' + key + ' значение ' + appData[key]);
+}
