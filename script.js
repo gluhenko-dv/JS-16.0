@@ -118,10 +118,9 @@ appData.getInfoDeposit();
 
 console.log(appData.depositPercent, appData.depositMoney, appData.calcSavedMoney());
 
-
-
 let addExpensesStr = '';
 for (let i = 0; i < appData.addExpenses.length; i++) {
   addExpensesStr += appData.addExpenses[i][0].toUpperCase() + appData.addExpenses[i].slice(1) + ', ';
 }
+addExpensesStr = addExpensesStr.slice(0, addExpensesStr.length - 2);
 console.log(addExpensesStr);
