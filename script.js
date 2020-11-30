@@ -42,7 +42,7 @@ let appData = {
       appData.income[itemIncome] = cashIncome;
     }
     let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Бенизин, Интернет, Коммуналка');
-    appData.addExpenses = addExpenses.toLowerCase().split(", ");
+    appData.addExpenses = addExpenses.toLowerCase().replace(/\s/g, '').split(",");
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
     let expensesName, expensesAmount;
     for (let i = 0; i < 2; i++) {
