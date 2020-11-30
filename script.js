@@ -1,21 +1,21 @@
 'use strict';
 let money = 76500;
 const isNumber = function (data) {
-  let question = prompt(data);
-    while(question.replace(/\d/g, '') !== ''){
-      question = prompt(data);
+    let result = prompt(data);
+    while (result.replace(/\d/g, '') !== '') {
+      result = prompt(data);
     }
-    return +question;
+    return +result;
   },
   isStr = function (data) {
-    let question = prompt(data);
-    while(question.replace(/\d/g, '') === ''){
-      question = prompt(data);
+    let result = prompt(data);
+    while (result.replace(/\d/g, '') === '') {
+      result = prompt(data);
     }
-    return question;
+    return result;
   },
   start = function () {
-      money = isNumber('Ваш месячный доход');
+    money = isNumber('Ваш месячный доход');
   };
 
 start();
@@ -36,13 +36,11 @@ let appData = {
   budgetMonth: 0,
   accumulatedMonth: 0,
   asking: function () {
-
     if (confirm('У вас есть доп. доход?')) {
       let itemIncome = isStr('Какой у вас доп.доход?');
       let cashIncome = isNumber('Сколько в месяц доп. заработок?');
       appData.income[itemIncome] = cashIncome;
     }
-
     let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Бенизин, Интернет, Коммуналка');
     appData.addExpenses = addExpenses.toLowerCase().split(", ");
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
