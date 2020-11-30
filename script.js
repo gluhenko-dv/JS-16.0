@@ -92,8 +92,14 @@ let appData = {
   },
   getInfoDeposit: function () {
     if (appData.deposit) {
-      appData.depositPercent = prompt('Какой у вас годовой процент?');
-      appData.depositMoney = prompt('Какая сумма заложена?');
+      appData.depositPercent = +prompt('Какой у вас годовой процент?');
+      while (!isNumber(appData.depositPercent)) {
+        appData.depositPercent = +prompt('Сколько в месяц доп. заработок?');
+      }
+      appData.depositMoney = +prompt('Какая сумма заложена?');
+      while (!isNumber(appData.depositMoney)) {
+        appData.depositMoney = +prompt('Сколько в месяц доп. заработок?');
+      }
     }
   },
   calcSavedMoney: function () {
