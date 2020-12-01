@@ -7,7 +7,7 @@ const isNumber = function (data) {
   },
   isStr = function (data) {
     let question = prompt(data),
-      result = !(question === null || question === '' || question.replace(/\d/g, '') === '') ? question.trim() : isNumber(data);
+      result = !(question === null || question === '' || question.replace(/\d/g, '') === '') ? question.trim() : isStr(data);
     return +result;
   },
   start = function () {
