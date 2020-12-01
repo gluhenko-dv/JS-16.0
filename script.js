@@ -1,20 +1,14 @@
 'use strict';
 let money = 76500;
 const isNumber = function (data) {
-    let result = prompt(data);
-    console.log('result: ', result);
-
-    while (result === null || result === '' || result.replace(/\d/g, '') !== '') {
-      result = prompt(data);
-    }
+    let question = prompt(data),
+      result = (question !== null && !isNaN(parseFloat(question)) && isFinite(question)) ? +question : isNumber(data);
     return +result;
   },
   isStr = function (data) {
-    let result = prompt(data);
-    while (result === null || result === '' || result.replace(/\d/g, '') === '') {
-      result = prompt(data);
-    }
-    return result;
+    let question = prompt(data),
+      result = !(question === null || question === '' || question.replace(/\d/g, '') === '') ? question : isNumber(data);
+    return +result;
   },
   start = function () {
     money = isNumber('Ваш месячный доход');
