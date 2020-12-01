@@ -2,12 +2,12 @@
 let money = 76500;
 const isNumber = function (data) {
     let question = prompt(data),
-      result = (question !== null && !isNaN(parseFloat(question)) && isFinite(question)) ? +question : isNumber(data);
+      result = (question !== null && !isNaN(parseFloat(question)) && isFinite(question)) ? +question.trim() : isNumber(data);
     return +result;
   },
   isStr = function (data) {
     let question = prompt(data),
-      result = !(question === null || question === '' || question.replace(/\d/g, '') === '') ? question : isNumber(data);
+      result = !(question === null || question === '' || question.replace(/\d/g, '') === '') ? question.trim() : isNumber(data);
     return +result;
   },
   start = function () {
