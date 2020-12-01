@@ -80,7 +80,7 @@ const app = function () {
 
   let longDate = 'Сегодня ' + requestDay(myDate.day) + ', ' + myDate.date + ' ' + requestMonth(myDate.month) + ' ' + myDate.year + ' года, ' + requestHour(myDate.hour) + myDate.minute + ' минут ' + myDate.second + ' секунд';
 
-  let shortDate = requestNumber(myDate.date) + '.' + myDate.month + '.' + myDate.year + ' - ' + myDate.hour + ':' + myDate.minute + ':' + requestNumber(myDate.second);
+  let shortDate = requestNumber(myDate.date) + '.' + requestNumber(myDate.month) + '.' + myDate.year + ' - ' + requestNumber(myDate.hour) + ':' + requestNumber(myDate.minute) + ':' + requestNumber(myDate.second);
   document.body.innerHTML += `</br>` + longDate;
   document.body.innerHTML += `</br>` + shortDate;
 
