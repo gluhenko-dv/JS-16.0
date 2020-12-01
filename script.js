@@ -1,17 +1,39 @@
 'use strict';
+
+let startBtn = document.getElementById('start'),
+  incomeAddBtn = document.getElementsByTagName('button')[0],
+  expensesAddBtn = document.getElementsByTagName('button')[1],
+  depositCheckBox = document.querySelector('#deposit-check'),
+  incomeItem1 = document.querySelectorAll('.additional_income-item')[0],
+  incomeItem2 = document.querySelectorAll('.additional_income-item')[1],
+  budgetMonthValue = document.getElementsByClassName('budget_month-value'),
+  budgetDayValue = document.getElementsByClassName('budget_day-value'),
+  expensesMonthValue = document.getElementsByClassName('expenses_month-value'),
+  additionalIncomeValue = document.getElementsByClassName('additional_income-value'),
+  additionalExpensesValue = document.getElementsByClassName('additional_expenses-value'),
+  incomePeriodValue = document.getElementsByClassName('income_period-value'),
+  targetMontValue = document.getElementsByClassName('target_month-value'),
+  periodSelect = document.querySelector('.period-select'),
+  salaryAmount = document.querySelector('.salary-amount'),
+  incomeTitle = document.querySelector('input[class="income-title"]'),
+  incomeAmount = document.querySelector('input[class="income-amount"]'),
+  expensesTitle = document.querySelector('input[class="expenses-title"]'),
+  expensesAmount = document.querySelector('input[class="expenses-amount"]'),
+  targetAmount = document.querySelector('input[class="target-amount"]');
+
 let money = 76500;
-const isNumber = function (data) {
+const requestNumber = function (data) {
     let question = prompt(data).trim(),
-      result = (question !== null && !isNaN(parseFloat(question)) && isFinite(question)) ? +question : isNumber(data);
+      result = (question !== null && !isNaN(parseFloat(question)) && isFinite(question)) ? +question : requestNumber(data);
     return +result;
   },
-  isStr = function (data) {
+  requestStr = function (data) {
     let question = prompt(data).trim(),
-      result = !(question === null || question === '' || question.replace(/\d/g, '') === '') ? question : isStr(data);
+      result = !(question === null || question === '' || question.replace(/\d/g, '') === '') ? question : requestStr(data);
     return result;
   },
   start = function () {
-    money = isNumber('Ваш месячный доход');
+    money = requestNumber('Ваш месячный доход');
   };
 
 start();
@@ -33,17 +55,18 @@ let appData = {
   accumulatedMonth: 0,
   asking: function () {
     if (confirm('У вас есть доп. доход?')) {
-      let itemIncome = isStr('Какой у вас доп.доход?');
-      let cashIncome = isNumber('Сколько в месяц доп. заработок?');
+      let itemIncome = requestStr('Какой у вас доп.доход?');
+      let cashIncome = requestNumber('Сколько в месяц доп. заработок?');
       appData.income[itemIncome] = cashIncome;
     }
     let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Бенизин, Интернет, Коммуналка');
     appData.addExpenses = addExpenses.toLowerCase().replace(/\s/g, '').split(",");
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
-    let expensesName, expensesAmount;
+    let expensesName = '',
+      expensesAmount = 0;
     for (let i = 0; i < 2; i++) {
-      expensesName = isStr('Введите статью расходов');
-      expensesAmount = isNumber('Во сколько это обойдется?');
+      expensesName = requestStr('Введите статью расходов');
+      expensesAmount = requestNumber('Во сколько это обойдется?');
       appData.expenses[expensesName] = expensesAmount;
     }
 
@@ -79,8 +102,8 @@ let appData = {
   },
   getInfoDeposit: function () {
     if (appData.deposit) {
-      appData.depositPercent = isNumber('Какой у вас годовой процент?');
-      appData.depositMoney = isNumber('Какая сумма заложена?');
+      appData.depositPercent = requestNumber('Какой у вас годовой процент?');
+      appData.depositMoney = requestNumber('Какая сумма заложена?');
     }
   },
   calcSavedMoney: function () {
