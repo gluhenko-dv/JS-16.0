@@ -8,7 +8,7 @@ const isNumber = function (data) {
   isStr = function (data) {
     let question = prompt(data).trim(),
       result = !(question === null || question === '' || question.replace(/\d/g, '') === '') ? question : isStr(data);
-    return +result;
+    return result;
   },
   start = function () {
     money = isNumber('Ваш месячный доход');
