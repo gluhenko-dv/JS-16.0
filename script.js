@@ -2,14 +2,16 @@
 let money = 76500;
 const isNumber = function (data) {
     let result = prompt(data);
-    while (result.replace(/\d/g, '') !== '') {
+    console.log('result: ', result);
+
+    while (result === null || result === '' || result.replace(/\d/g, '') !== '') {
       result = prompt(data);
     }
     return +result;
   },
   isStr = function (data) {
     let result = prompt(data);
-    while (result.replace(/\d/g, '') === '') {
+    while (result === null || result === '' || result.replace(/\d/g, '') === '') {
       result = prompt(data);
     }
     return result;
