@@ -1,7 +1,4 @@
 'use strict';
-
-
-
 const requestDay = function (data) {
   switch (data) {
     case 1:
@@ -49,27 +46,27 @@ const requestMonth = function (data) {
   }
 };
 const requestHour = function (data) {
-  if (data == 1 || data == 21) {
+  if (data === 1 || data === 21) {
     return data + ' час ';
-  } else if (2 <= data <= 4 || 21 < data <= 24) {
+  } else if ((2 <= data && data <= 4) || (21 < data && data <= 24)) {
     return data + ' часа ';
   } else {
     return data + ' часов ';
   }
 };
 const requestSecund = function (data) {
-  if (data % 10 == 1 && data != 11) {
+  if (data % 10 === 1 && data !== 11) {
     return data + ' секунда ';
-  } else if (data % 10 <= 4 && data % 10 >= 2 && data != 12 && data != 13 && data != 14) {
+  } else if (data % 10 <= 4 && data % 10 >= 2 && data !== 12 && data !== 13 && data !== 14) {
     return data + ' секунды ';
   } else {
     return data + ' секунд ';
   }
 };
 const requestMinute = function (data) {
-  if (data % 10 == 1 && data != 11) {
+  if (data % 10 === 1 && data !== 11) {
     return data + ' минута ';
-  } else if (data % 10 <= 4 && data % 10 >= 2 && data != 12 && data != 13 && data != 14) {
+  } else if (data % 10 <= 4 && data % 10 >= 2 && data !== 12 && data !== 13 && data !== 14) {
     return data + ' минуты ';
   } else {
     return data + ' минут ';
@@ -94,16 +91,11 @@ const app = function () {
       second: date.getSeconds()
     };
 
+  let shortDate = `${requestNumber(myDate.date)}.${requestNumber(myDate.month)}.${myDate.year} - ${requestNumber(myDate.hour)}:${requestNumber(myDate.minute)}:${requestNumber(myDate.second)}`;
 
+  let longDate = `Сегодня ${requestDay(myDate.day)}, ${myDate.date} ${requestMonth(myDate.month)} ${myDate.year} года, ${requestHour(myDate.hour)} ${requestMinute(myDate.minute)} ${requestSecund(myDate.second)}`;
 
-  let longDate = 'Сегодня ' + requestDay(myDate.day) + ', ' + myDate.date + ' ' + requestMonth(myDate.month) + ' ' + myDate.year + ' года, ' + requestHour(myDate.hour) + requestMinute(myDate.minute) + '' + requestSecund(myDate.second);
-
-  let shortDate = requestNumber(myDate.date) + '.' + requestNumber(myDate.month) + '.' + myDate.year + ' - ' + requestNumber(myDate.hour) + ':' + requestNumber(myDate.minute) + ':' + requestNumber(myDate.second);
-
-  let longDate2 = `Сегодня ${requestDay(myDate.day)}, ${myDate.date} ${requestMonth(myDate.month)} ${myDate.year} года, ${requestHour(myDate.hour)} ${requestMinute(myDate.minute)} ${requestSecund(myDate.second)}`;
-
-  document.body.innerHTML = longDate2 + `</br>` + longDate + `</br>` + shortDate;
+  document.body.innerHTML = `${longDate} </br> ${shortDate}`;
 
 };
-app();
 setInterval(app, 1000);
