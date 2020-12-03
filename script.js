@@ -168,6 +168,7 @@ appData.validation();
 
 const changePeriodSelectTitle = function (event) {
   document.querySelector('.period-amount').innerHTML = event.target.value;
+  appData.showResult();
 };
 
 salaryAmount.addEventListener('input', function () {
