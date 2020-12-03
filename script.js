@@ -20,7 +20,8 @@ let startBtn = document.getElementById('start'),
   expensesItems = document.querySelectorAll('.expenses-items'),
   targetAmount = document.querySelector('input[class="target-amount"]'),
   additionalExpensesItem = document.querySelector('.additional_expenses-item'),
-  incomeItem = document.querySelectorAll('.income-items');
+  incomeItem = document.querySelectorAll('.income-items'),
+  allInputs = document.querySelectorAll('input');
 startBtn.disabled = true;
 
 let money = 76500;
@@ -74,6 +75,9 @@ let appData = {
   },
   addExpensesBlock: function () {
     let cloneExpensesItem = expensesItems[0].cloneNode(true);
+    cloneExpensesItem.querySelectorAll('input').forEach(function (item) {
+      item.value = '';
+    });
     expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesAddBtn);
     expensesItems = document.querySelectorAll('.expenses-items');
     if (expensesItems.length === 3) {
@@ -82,6 +86,9 @@ let appData = {
   },
   addIncomeBlock: function () {
     let cloneIncomeItem = incomeItem[0].cloneNode(true);
+    cloneIncomeItem.querySelectorAll('input').forEach(function (item) {
+      item.value = '';
+    });
     incomeItem[0].parentNode.insertBefore(cloneIncomeItem, incomeAddBtn);
     incomeItem = document.querySelectorAll('.income-items');
     if (incomeItem.length === 3) {
@@ -160,8 +167,30 @@ let appData = {
   },
   calcPeriod: function () {
     return appData.budgetMonth * periodSelect.value;
+  },
+  validation: function () {
+    let inputName = document.querySelectorAll('[placeholder="Наименование"]'),
+      inputSum = document.querySelectorAll('[placeholder="Сумма"]');
+
+    inputName.forEach(function (item) {
+      item.addEventListener('input', function () {
+        item.value = item.value.replace(/[^А-Яа-яЁё,.!? ]/i, '');
+      });
+    });
+
+    inputSum.forEach(function (item) {
+      item.addEventListener('input', function () {
+        if (item.value === '0') {
+          item.value = item.value.replace(/[^1-9]/i, '');
+        }
+        item.value = item.value.replace(/[^0-9]/i, '');
+      });
+    });
   }
 };
+
+appData.validation();
+
 
 const changePeriodSelectTitle = function (event) {
   document.querySelector('.period-amount').innerHTML = event.target.value;
