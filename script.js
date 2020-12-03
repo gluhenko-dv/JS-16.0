@@ -14,8 +14,6 @@ let startBtn = document.getElementById('start'),
   targetMontValue = document.getElementsByClassName('target_month-value')[0],
   periodSelect = document.querySelector('.period-select'),
   salaryAmount = document.querySelector('.salary-amount'),
-  incomeTitle = document.querySelector('input[class="income-title"]'),
-  incomeAmount = document.querySelector('input[class="income-amount"]'),
   expensesTitle = document.querySelector('input[class="expenses-title"]'),
   expensesItems = document.querySelectorAll('.expenses-items'),
   targetAmount = document.querySelector('input[class="target-amount"]'),
@@ -57,9 +55,8 @@ let appData = {
     additionalExpensesValue.value = appData.addExpenses.join(', ');
     additionalIncomeValue.value = appData.addIncome.join(', ');
     targetMontValue.value = Math.ceil(appData.getTargetMonth());
-    periodSelect.addEventListener('input', function () {
-      incomePeriodValue.value = appData.calcPeriod();
-    });
+    incomePeriodValue.value = appData.calcPeriod();
+
   },
   addExpensesBlock: function () {
     let cloneExpensesItem = expensesItems[0].cloneNode(true);
@@ -94,15 +91,12 @@ let appData = {
   },
   getIncome: function () {
     incomeItem.forEach(function (item) {
-      let itemIncome = incomeTitle.value;
-      let cashIncome = incomeAmount.value;
+      let itemIncome = item.querySelector('.income-title').value;
+      let cashIncome = item.querySelector('.income-amount').value;
       if (itemIncome !== '' && cashIncome !== '') {
         appData.income[itemIncome] = cashIncome;
+        appData.incomeMonth += +cashIncome;
       }
-      for (let key in appData.income) {
-        appData.incomeMonth += +appData.income[key];
-      }
-
     });
   },
   getAddExpenses: function () {
@@ -129,8 +123,8 @@ let appData = {
     return appData.expensesMonth;
   },
   getBudget: function () {
-    appData.budgetMonth = appData.budget + appData.incomeMonth - appData.expensesMonth;
-    appData.budgetDay = appData.budgetMonth / 30;
+    appData.budgetMonth = appData.budget + Number(appData.incomeMonth/ 2) - appData.expensesMonth;
+    appData.budgetDay = Math.ceil(appData.budgetMonth / 30);
   },
   getTargetMonth: function () {
     return targetAmount.value / appData.budgetMonth;
@@ -146,12 +140,6 @@ let appData = {
       return ('Что то пошло не так');
     }
   },
- /*  getInfoDeposit: function () {
-    if (appData.deposit) {
-      appData.depositPercent = requestNumber('Какой у вас годовой процент?');
-      appData.depositMoney = requestNumber('Какая сумма заложена?');
-    }
-  }, */
   calcPeriod: function () {
     return appData.budgetMonth * periodSelect.value;
   },
