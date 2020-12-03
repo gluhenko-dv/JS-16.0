@@ -168,7 +168,8 @@ appData.validation();
 
 const changePeriodSelectTitle = function (event) {
   document.querySelector('.period-amount').innerHTML = event.target.value;
-  if (targetAmount.value === '') {
+  appData.showResult();
+  if (targetAmount.value === '' || targetMontValue.value === 'Infinity') {
     targetMontValue.value = 'Срок';
   } else {
     appData.showResult();
