@@ -123,11 +123,15 @@ let appData = {
     return appData.expensesMonth;
   },
   getBudget: function () {
-    appData.budgetMonth = appData.budget + Number(appData.incomeMonth/ 2) - appData.expensesMonth;
+    appData.budgetMonth = appData.budget + Number(appData.incomeMonth / 2) - appData.expensesMonth;
     appData.budgetDay = Math.ceil(appData.budgetMonth / 30);
   },
   getTargetMonth: function () {
-    return targetAmount.value / appData.budgetMonth;
+    if (targetAmount) {
+      return targetAmount.value;
+    } else {
+      return targetAmount.value / appData.budgetMonth;
+    }
   },
   getStatusIncome: function (data) {
     if (data >= 1200) {
