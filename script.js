@@ -127,11 +127,7 @@ let appData = {
     appData.budgetDay = Math.ceil(appData.budgetMonth / 30);
   },
   getTargetMonth: function () {
-    if (targetAmount) {
-      return targetAmount.value;
-    } else {
-      return targetAmount.value / appData.budgetMonth;
-    }
+    return targetAmount.value / appData.budgetMonth;
   },
   getStatusIncome: function (data) {
     if (data >= 1200) {
@@ -172,7 +168,12 @@ appData.validation();
 
 const changePeriodSelectTitle = function (event) {
   document.querySelector('.period-amount').innerHTML = event.target.value;
-  appData.showResult();
+  if (targetAmount.value === '') {
+    targetMontValue.value = 'Срок';
+  } else {
+    appData.showResult();
+  }
+
 };
 
 salaryAmount.addEventListener('input', function () {
