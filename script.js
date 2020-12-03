@@ -24,18 +24,6 @@ let startBtn = document.getElementById('start'),
   allInputs = document.querySelectorAll('input');
 startBtn.disabled = true;
 
-let money = 76500;
-const requestNumber = function (data) {
-    let question = prompt(data).trim(),
-      result = (question !== null && !isNaN(parseFloat(question)) && isFinite(question)) ? +question : requestNumber(data);
-    return +result;
-  },
-  requestStr = function (data) {
-    let question = prompt(data).trim(),
-      result = !(question === null || question === '' || question.replace(/\d/g, '') === '') ? question : requestStr(data);
-    return result;
-  };
-
 let appData = {
   income: {},
   incomeMonth: 0,
@@ -46,7 +34,7 @@ let appData = {
   deposit: false,
   depositPercent: 0,
   depositMoney: 0,
-  budget: +money,
+  budget: 0,
   budgetDay: 0,
   budgetMonth: 0,
   accumulatedMonth: 0,
@@ -102,7 +90,6 @@ let appData = {
       if (itemExpenses !== '' && cashExpenses !== '') {
         appData.expenses[itemExpenses] = +cashExpenses;
       }
-
     });
   },
   getIncome: function () {
@@ -159,18 +146,18 @@ let appData = {
       return ('Что то пошло не так');
     }
   },
-  getInfoDeposit: function () {
+ /*  getInfoDeposit: function () {
     if (appData.deposit) {
       appData.depositPercent = requestNumber('Какой у вас годовой процент?');
       appData.depositMoney = requestNumber('Какая сумма заложена?');
     }
-  },
+  }, */
   calcPeriod: function () {
     return appData.budgetMonth * periodSelect.value;
   },
   validation: function () {
     let inputName = document.querySelectorAll('[placeholder="Наименование"]'),
-      inputSum = document.querySelectorAll('[placeholder="Сумма"]');
+      inputSumm = document.querySelectorAll('[placeholder="Сумма"]');
 
     inputName.forEach(function (item) {
       item.addEventListener('input', function () {
@@ -178,7 +165,7 @@ let appData = {
       });
     });
 
-    inputSum.forEach(function (item) {
+    inputSumm.forEach(function (item) {
       item.addEventListener('input', function () {
         if (item.value === '0') {
           item.value = item.value.replace(/[^1-9]/i, '');
@@ -190,7 +177,6 @@ let appData = {
 };
 
 appData.validation();
-
 
 const changePeriodSelectTitle = function (event) {
   document.querySelector('.period-amount').innerHTML = event.target.value;
@@ -209,11 +195,9 @@ expensesAddBtn.addEventListener('click', appData.addExpensesBlock);
 incomeAddBtn.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input', changePeriodSelectTitle);
 
-appData.getInfoDeposit();
-
-
+/* appData.getInfoDeposit();
 let addExpensesStr = '';
 for (let i = 0; i < appData.addExpenses.length; i++) {
   addExpensesStr += appData.addExpenses[i][0].toUpperCase() + appData.addExpenses[i].slice(1) + ', ';
 }
-addExpensesStr = addExpensesStr.slice(0, addExpensesStr.length - 2);
+addExpensesStr = addExpensesStr.slice(0, addExpensesStr.length - 2); */
