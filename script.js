@@ -5,18 +5,13 @@ const todoControl = document.querySelector('.todo-control'),
   todoList = document.querySelector('.todo-list'),
   todoCompleted = document.querySelector('.todo-completed');
 
-let todoData = [];
+let todoData;
 
 const render = function () {
   todoList.textContent = '';
   todoCompleted.textContent = '';
 
-  if (localStorage.todoData) {
-    todoData = JSON.parse(localStorage.todoData);
-  } else {
-    todoData = [];
-  }
-
+  todoData = localStorage.todoData ? JSON.parse(localStorage.todoData) : [];
 
   todoData.forEach(function (item, ) {
     const li = document.createElement('li');
