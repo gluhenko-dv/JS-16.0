@@ -11,7 +11,12 @@ const render = function () {
   todoList.textContent = '';
   todoCompleted.textContent = '';
 
-  todoData = JSON.parse(localStorage.todoData);
+  if (localStorage.todoData) {
+    todoData = JSON.parse(localStorage.todoData);
+  } else {
+    todoData = [];
+  }
+
 
   todoData.forEach(function (item, ) {
     const li = document.createElement('li');
