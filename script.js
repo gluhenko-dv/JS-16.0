@@ -1,66 +1,113 @@
 'use strict';
 
-const todoControl = document.querySelector('.todo-control'),
-  headerInput = document.querySelector('.header-input'),
-  todoList = document.querySelector('.todo-list'),
-  todoCompleted = document.querySelector('.todo-completed');
+const btnRegister = document.querySelector('.btn-register'),
+  btnLogin = document.querySelector('.btn-login'),
+  list = document.querySelector('.list'),
+  listItem = document.querySelector('.list-item'),
+  itemTitle = document.querySelector('.item-title'),
+  heroTtitle = document.querySelector('.hero-title');
 
-let todoData;
+let userData = [];
+
+const requestTime = function () {
+  let time = new Date();
+  let options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  };
+  return time.toLocaleString("ru", options);
+};
 
 const render = function () {
-  todoList.textContent = '';
-  todoCompleted.textContent = '';
+  list.textContent = '';
+  userData = localStorage.userData ? JSON.parse(localStorage.userData) : [];
 
-  todoData = localStorage.todoData ? JSON.parse(localStorage.todoData) : [];
-
-  todoData.forEach(function (item, ) {
+  userData.forEach(function (item) {
     const li = document.createElement('li');
-    li.classList.add('todo-item');
+    li.classList.add('list-item');
     li.innerHTML = `
-    <span class="text-todo">${item.value}</span>
-    <div class="todo-buttons">
-      <button class="todo-remove"></button>
-      <button class="todo-complete"></button>
-    </div>
+    <p class="item-title">Имя: ${item.firstName}, Фамилия: ${item.lastName}, зарегестрирован: ${item.registerTime}</p>
+		<button class="item-delete"></button>
     `;
-    if (item.completed) {
-      todoCompleted.append(li);
-    } else {
-      todoList.append(li);
-    }
+    list.append(li);
 
-    const todoCompletedBtn = li.querySelector('.todo-complete');
-    todoCompletedBtn.addEventListener('click', function () {
-      item.completed = !item.completed;
-      let json = JSON.stringify(todoData);
-      localStorage.todoData = json;
-      render();
-    });
-    const todoRemovedBtn = li.querySelector('.todo-remove');
-    todoRemovedBtn.addEventListener('click', function () {
-      todoData.splice(todoData.indexOf(item), 1);
-      let json = JSON.stringify(todoData);
-      localStorage.todoData = json;
+    const userDataRemovedBtn = li.querySelector('.item-delete');
+    userDataRemovedBtn.addEventListener('click', function () {
+      if (!confirm('Вы уверены?')) {
+        return;
+      }
+      userData.splice(userData.indexOf(item), 1);
+      let json = JSON.stringify(userData);
+      localStorage.userData = json;
       render();
     });
   });
 };
-
-todoControl.addEventListener('submit', function (event) {
-  event.preventDefault();
-  if (!headerInput.value) {
-    alert('Заполни поле ввода');
+const validation = function (data) {
+  let question = prompt(data).trim(),
+    result = !(question === null || question === '') ? question : validation(data);
+  return result;
+};
+const register = function () {
+  let name = prompt('Введите Имя Фамилию');
+  while (name.split(/\s/).length !== 2) {
+    alert('Введите корректно Имя Фамилию');
+    name = prompt('Введите Имя Фамилию');
+  }
+  name = name.split(' ');
+  const newUser = {
+    firstName: name[0],
+    lastName: name[1],
+    login: '',
+    password: '',
+    registerTime: requestTime(),
+  };
+  newUser.login = validation('Введите логин');
+  newUser.password = validation('Введите пароль');
+  if (userData.firstName === '' || userData.login === '' || userData.password === '') {
+    alert('Заполни все поля!');
+    register();
+  }
+  if (userData.find(item => item.login === newUser.login)) {
+    alert('Такой пользователь уже есть, придумай другой логин!');
     return;
   }
-  const newTodo = {
-    value: headerInput.value,
-    completed: false
-  };
-  todoData.push(newTodo);
-  let json = JSON.stringify(todoData);
-  localStorage.todoData = json;
+  userData.push(newUser);
+
+  let json = JSON.stringify(userData);
+  localStorage.userData = json;
   render();
-  todoControl.reset();
+};
+
+const authorization = function () {
+  let login = prompt('Введите логин');
+  if (!login) {
+    return;
+  }
+  let password = prompt('Введите ппароль');
+  if (!password) {
+    return;
+  }
+  if (userData.find(item => item.login === login && item.password === password)) {
+    heroTtitle.innerHTML = `Привет ${login}`;
+    console.log(login);
+  } else {
+    alert('пользователь не найден');
+  }
+};
+
+btnRegister.addEventListener('click', function (event) {
+  event.preventDefault();
+  register();
+});
+
+btnLogin.addEventListener('click', function (event) {
+  event.preventDefault();
+  authorization();
 });
 
 render();

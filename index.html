@@ -1,45 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport"
-				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>ToDo</title>
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Бонус выходного дня</title>
 	<link rel="stylesheet" type="text/css" href="css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-
-<header class="header">
-	<form class="todo-control">
-		<label><input class="header-input" type="text" placeholder="Какие планы?"></label>
-		<button class="header-button" id="add"></button>
-	</form>
-</header>
-
-<div class="todo-container">
-
-	<ul class="todo todo-list" id="todo">
-		<li class="todo-item">
-			<span class="text-todo">Сварить кофе</span>
-			<div class="todo-buttons">
-				<button class="todo-remove"></button>
-				<button class="todo-complete"></button>
-			</div>
+<section class="hero">
+	<h1 class="hero-title">Привет Аноним</h1>
+	<button class="btn btn-register">Зарегистрировать</button>
+	<button class="btn btn-login">Авторизовать</button>
+	<ul class="list">
+		<li class="list-item item">
+			<p class="item-title">Бла бла бла бла</p>
+			<button class="item-delete"></button>
 		</li>
 	</ul>
-	<ul class="todo todo-completed" id="completed">
-		<li class="todo-item">
-			<span class="text-todo">Помыть посуду</span>
-			<div class="todo-buttons">
-				<button class="todo-remove"></button>
-				<button class="todo-complete"></button>
-			</div>
-		</li>
-	</ul>
-</div>
+</section>
 
 <script src="script.js"></script>
 </body>
