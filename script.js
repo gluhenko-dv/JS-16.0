@@ -4,7 +4,6 @@ const btnRegister = document.querySelector('.btn-register'),
   btnLogin = document.querySelector('.btn-login'),
   list = document.querySelector('.list'),
   listItem = document.querySelector('.list-item'),
-  itemTitle = document.querySelector('.item-title'),
   heroTtitle = document.querySelector('.hero-title');
 
 let userData = [];
@@ -19,10 +18,10 @@ const requestTime = function () {
     minute: 'numeric',
     second: 'numeric'
   };
-  return time.toLocaleString("ru", options);
+  return time.toLocaleString('ru', options);
 };
 
-const render = function () {
+const userOutput = function () {
   list.textContent = '';
   userData = localStorage.userData ? JSON.parse(localStorage.userData) : [];
 
@@ -37,15 +36,15 @@ const render = function () {
 
     const userDataRemovedBtn = li.querySelector('.item-delete');
     userDataRemovedBtn.addEventListener('click', function () {
-      if (!confirm('Вы уверены?')) {
-        return;
-      }
+      if (!confirm('Вы уверены?')) return;
       userData.splice(userData.indexOf(item), 1);
       let json = JSON.stringify(userData);
       localStorage.userData = json;
-      render();
+      userOutput();
     });
   });
+  console.clear();
+  console.log(userData);
 };
 const validation = function (data) {
   let question = prompt(data).trim(),
@@ -68,10 +67,6 @@ const register = function () {
   };
   newUser.login = validation('Введите логин');
   newUser.password = validation('Введите пароль');
-  if (userData.firstName === '' || userData.login === '' || userData.password === '') {
-    alert('Заполни все поля!');
-    register();
-  }
   if (userData.find(item => item.login === newUser.login)) {
     alert('Такой пользователь уже есть, придумай другой логин!');
     return;
@@ -80,23 +75,18 @@ const register = function () {
 
   let json = JSON.stringify(userData);
   localStorage.userData = json;
-  render();
+  userOutput();
 };
 
 const authorization = function () {
-  let login = prompt('Введите логин');
-  if (!login) {
-    return;
-  }
-  let password = prompt('Введите ппароль');
-  if (!password) {
-    return;
-  }
+  let login = validation('Введите логин'),
+    password = validation('Введите пароль');
+
   if (userData.find(item => item.login === login && item.password === password)) {
     heroTtitle.innerHTML = `Привет ${login}`;
     console.log(login);
   } else {
-    alert('пользователь не найден');
+    alert('Пользователь не найден');
   }
 };
 
@@ -110,4 +100,4 @@ btnLogin.addEventListener('click', function (event) {
   authorization();
 });
 
-render();
+userOutput();
