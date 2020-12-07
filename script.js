@@ -53,7 +53,8 @@ let appData = {
     this.budgetDay = 0;
     this.budgetMonth = 0;
     this.accumulatedMonth = 0;
-    allInputs.forEach(function (item) {
+    let inputs = document.querySelectorAll('input');
+    inputs.forEach(function (item) {
       item.disabled = false;
       item.value = '';
     });
@@ -63,7 +64,8 @@ let appData = {
     periodSelect.value = 0;
   },
   start: function () {
-    allInputs.forEach(function (item) {
+    let inputs = document.querySelectorAll('input');
+    inputs.forEach(function (item) {
       item.disabled = true;
     });
     startBtn.style.display = 'none';
