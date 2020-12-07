@@ -102,7 +102,6 @@ let appData = {
     this.getExpensesMonth();
     this.getAddExpenses();
     this.getAddIncome();
-    this.getIncome();
     this.getBudget();
 
     this.showResult();
@@ -158,11 +157,10 @@ let appData = {
       if (itemIncome !== '' && cashIncome !== '') {
         appData.income[itemIncome] = cashIncome;
       }
-      for (let key in appData.income) {
-        appData.incomeMonth += +appData.income[key];
-      }
-
     });
+    for (let key in this.income) {
+      this.incomeMonth += +this.income[key];
+    }
   },
   getAddExpenses: function () {
     let addExpenses = additionalExpensesItem.value.split(', ');
@@ -183,13 +181,13 @@ let appData = {
 
   },
   getExpensesMonth: function () {
-    for (let key in appData.expenses) {
-      appData.expensesMonth += appData.expenses[key];
+    for (let key in this.expenses) {
+      this.expensesMonth += this.expenses[key];
     }
     return this.expensesMonth;
   },
   getBudget: function () {
-    this.budgetMonth = this.budget + (this.incomeMonth / 2) - this.expensesMonth;
+    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
     this.budgetDay = Math.ceil(this.budgetMonth / 30);
   },
   getTargetMonth: function () {
