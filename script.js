@@ -58,12 +58,16 @@ let appData = {
       item.disabled = false;
       item.value = '';
     });
+    expensesAddBtn.disabled = false;
+    incomeAddBtn.disabled = false;
     startBtn.style.display = 'block';
     cancelBtn.style.display = 'none';
     this.showResult();
     periodSelect.value = 0;
   },
   start: function () {
+    expensesAddBtn.disabled = true;
+    incomeAddBtn.disabled = true;
     let inputs = document.querySelectorAll('input');
     inputs.forEach(function (item) {
       item.disabled = true;
@@ -163,7 +167,7 @@ let appData = {
     return appData.expensesMonth;
   },
   getBudget: function () {
-    this.budgetMonth = this.budget + (this.incomeMonth/2) - this.expensesMonth;
+    this.budgetMonth = this.budget + (this.incomeMonth / 2) - this.expensesMonth;
     this.budgetDay = Math.ceil(this.budgetMonth / 30);
   },
   getTargetMonth: function () {
