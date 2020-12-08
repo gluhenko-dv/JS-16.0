@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 const body = document.querySelector('body');
 
 function DomElement(selector, height, width, bg, fontSize, text, position) {
@@ -43,4 +41,33 @@ let obj2 = new DomElement('.selector', '100', '100', 'red', '14', ' ', 'absolute
 
 document.addEventListener("DOMContentLoaded", function () {
   obj2.createElem();
+});
+let marginVertical = 0;
+let marginGorizontal = 0;
+
+document.addEventListener("keydown", function(event){
+  const elem = document.querySelector('.selector');
+
+  switch(true){
+    case (event.code == 'ArrowUp'):
+      console.log('нажал на стрелку вверх');
+      marginVertical += 10;
+      elem.style.marginTop = `${marginVertical}px`;
+    break;
+    case (event.code == 'ArrowDown'):
+      console.log('нажал на стрелку вверх');
+      marginVertical-= 10;
+      elem.style.marginTop = `${marginVertical}px`;
+    break;
+    case (event.code == 'ArrowRight'):
+      console.log('нажал на стрелку вверх');
+      marginGorizontal += 10;
+      elem.style.marginLeft = `${marginGorizontal}px`;
+    break;
+    case (event.code == 'ArrowLeft'):
+      console.log('нажал на стрелку вверх');
+      marginGorizontal -= 10;
+      elem.style.marginLeft = `${marginGorizontal}px`;
+    break;
+  }
 });
