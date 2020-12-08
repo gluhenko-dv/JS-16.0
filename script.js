@@ -51,12 +51,12 @@ document.addEventListener("keydown", function(event){
   switch(true){
     case (event.code == 'ArrowUp'):
       console.log('нажал на стрелку вверх');
-      marginVertical += 10;
+      marginVertical -= 10;
       elem.style.marginTop = `${marginVertical}px`;
     break;
     case (event.code == 'ArrowDown'):
       console.log('нажал на стрелку вверх');
-      marginVertical-= 10;
+      marginVertical+= 10;
       elem.style.marginTop = `${marginVertical}px`;
     break;
     case (event.code == 'ArrowRight'):
