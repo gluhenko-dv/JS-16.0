@@ -74,8 +74,8 @@ class AppData {
     startBtn.style.display = "block";
     cancelBtn.style.display = "none";
     this.showResult();
-    periodSelect.value = 0;
-    document.querySelector(".period-amount").innerHTML = 0;
+    periodSelect.value = 1;
+    document.querySelector(".period-amount").innerHTML = 1;
     depositСheck.checked = false;
     startBtn.disabled = true;
 
@@ -344,13 +344,6 @@ class AppData {
 
     }
   }
-  getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  }
-
 }
 
 const appData = new AppData();
