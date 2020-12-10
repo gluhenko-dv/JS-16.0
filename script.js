@@ -28,8 +28,10 @@ const startBtn = document.getElementById("start"),
   additionalExpensesItem = document.querySelector(".additional_expenses-item"),
   income = document.querySelector(".income"),
   allInputs = document.querySelectorAll("input"),
-  depositСheck = document.querySelector("#deposit-check");
-
+  depositСheck = document.querySelector("#deposit-check"),
+  depositBank = document.querySelector('.deposit-bank'),
+  depositAmount = document.querySelector('.deposit-amount'),
+  depositPercent = document.querySelector('.deposit-percent');
 let incomeItem = document.querySelectorAll(".income-items"),
   expensesItems = document.querySelectorAll(".expenses-items");
 startBtn.disabled = true;
@@ -108,6 +110,7 @@ class AppData {
     this.getExpInc();
     this.getExpensesMonth();
     this.getAddExpInc();
+    this.getInfoDeposit();
     this.getBudget();
 
     this.showResult();
@@ -194,7 +197,8 @@ class AppData {
     return this.expensesMonth;
   }
   getBudget() {
-    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
+    const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
+    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
     this.budgetDay = Math.ceil(this.budgetMonth / 30);
   }
   getTargetMonth() {
@@ -214,11 +218,41 @@ class AppData {
   calcPeriod() {
     return this.budgetMonth * periodSelect.value;
   }
-  depositHandler(){
-    if(depositСheck.checked){
-      console.log('check');
-    }else{
-      console.log('uncheck');
+  getInfoDeposit() {
+    if (this.deposit) {
+      this.percentDeposit = depositPercent.value;
+      this.moneyDeposit = depositAmount.value;
+    }
+  }
+  changePercent() {
+    const valueSelect = this.value;
+    if (valueSelect === 'other') {
+      depositPercent.style.display = 'inline-block';
+      depositPercent.addEventListener('input', () => {
+        if (depositPercent.value > 100 || !Number(depositPercent.value)) {
+          alert('Введите корректное значение в поле проценты');
+          depositPercent.value = '';
+        }
+      });
+
+    } else {
+      depositPercent.value = valueSelect;
+    }
+  }
+  depositHandler() {
+    if (depositСheck.checked) {
+      depositBank.style.display = 'inline-block';
+      depositAmount.style.display = 'inline-block';
+      this.deposit = true;
+      depositBank.addEventListener('change', this.changePercent);
+    } else {
+      depositBank.style.display = 'none';
+      depositAmount.style.display = 'none';
+      depositPercent.style.display = 'none';
+      depositBank.value = '';
+      depositAmount.value = '';
+      this.deposit = false;
+      depositBank.removeEventListener('change', this.changePercent);
     }
   }
   validation() {
