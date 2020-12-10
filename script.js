@@ -257,6 +257,7 @@ class AppData {
         startBtn.disabled = false;
       }
     });
+    depositСheck.addEventListener('change', this.depositHandler.bind(this));
   }
 }
 
