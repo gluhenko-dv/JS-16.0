@@ -338,9 +338,10 @@ class AppData {
       let cookie = cookies[i];
       let name = cookie.split("=");
       let key = name[0].trim();
-      if ( cookies.length !== 7 ||  key in userData[0] ) {
+      if ( cookies.length !== 7 || !(key in userData[0])) {
         this.reset();
       }
+
     }
   }
   getCookie(name) {
