@@ -214,6 +214,13 @@ class AppData {
   calcPeriod() {
     return this.budgetMonth * periodSelect.value;
   }
+  depositHandler(){
+    if(depositСheck.checked){
+      console.log('check');
+    }else{
+      console.log('uncheck');
+    }
+  }
   validation() {
     const inputName = document.querySelectorAll('[placeholder="Наименование"]'),
       inputSumm = document.querySelectorAll('[placeholder="Сумма"]');
@@ -240,8 +247,8 @@ class AppData {
   eventListeners() {
     startBtn.addEventListener("click", () => this.start());
     cancelBtn.addEventListener("click", () => this.reset());
-    expensesAddBtn.addEventListener('click', this.addBlock.bind(this));
-    incomeAddBtn.addEventListener('click', this.addBlock.bind(this));
+    expensesAddBtn.addEventListener('click', this.addExpIncBlock.bind(this));
+    incomeAddBtn.addEventListener('click', this.addExpIncBlock.bind(this));
     periodSelect.addEventListener("input", this.changePeriodSelectTitle);
     salaryAmount.addEventListener("input", function () {
       if (!salaryAmount.value) {
@@ -250,6 +257,7 @@ class AppData {
         startBtn.disabled = false;
       }
     });
+    depositСheck.addEventListener('change', this.depositHandler.bind(this));
   }
 }
 
