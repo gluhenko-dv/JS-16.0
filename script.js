@@ -66,6 +66,9 @@ class AppData {
     this.budgetDay = 0;
     this.budgetMonth = 0;
     this.accumulatedMonth = 0;
+    depositBank.style.display = 'none';
+    depositAmount.style.display = 'none';
+    depositPercent.style.display = 'none';
     const inputs = document.querySelectorAll("input");
     inputs.forEach(function (item) {
       item.disabled = false;
@@ -293,6 +296,11 @@ class AppData {
       }
     });
     depositСheck.addEventListener('change', this.depositHandler.bind(this));
+  }
+  saveUserInfo() {
+    let userData = [
+
+    ];
   }
 }
 
