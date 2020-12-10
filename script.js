@@ -193,7 +193,7 @@ class AppData {
   }
   getExpensesMonth() {
     for (let key in this.expenses) {
-      this.expensesMonth += this.expenses[key];
+      this.expensesMonth += +this.expenses[key];
     }
     return this.expensesMonth;
   }
