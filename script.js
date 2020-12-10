@@ -122,6 +122,7 @@ class AppData {
     additionalExpensesValue.value = this.addExpenses.join(", ");
     additionalIncomeValue.value = this.addIncome.join(", ");
     targetMontValue.value = Math.ceil(this.getTargetMonth());
+    incomePeriodValue.value = this.calcPeriod();
     periodSelect.addEventListener(
       "input",
       () => (incomePeriodValue.value = this.calcPeriod())
@@ -197,7 +198,7 @@ class AppData {
     return this.expensesMonth;
   }
   getBudget() {
-    const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
+    const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100) || 0;
     this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
     this.budgetDay = Math.ceil(this.budgetMonth / 30);
   }
