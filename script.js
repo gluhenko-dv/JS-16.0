@@ -6,7 +6,10 @@ window.addEventListener("DOMContentLoaded", () => {
   const output = () => {
     paragraph.textContent = input.value;
   };
-  input.addEventListener("change", () => {
-    setTimeout(output, 300);
+  input.addEventListener("keydown", (event) => {
+    if (event.code === 'Space') {
+      setTimeout(output, 300);
+    }
+
   });
 });
