@@ -2,15 +2,12 @@
 window.addEventListener("DOMContentLoaded", () => {
   const timer = (deadline) => {
     const body = document.querySelector("body");
-    const date = new Date();
 
     const getTimeRemaining = () => {
       const dateStop = new Date(deadline).getTime(),
         dateNow = new Date().getTime(),
         timeRemaining = (dateStop - dateNow) / 1000,
         days = Math.floor(timeRemaining / 60 / 60 / 24);
-      console.log("days: ", days);
-
       return days;
     };
 
@@ -45,6 +42,7 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     };
     const render = () => {
+      const date = new Date();
       body.innerHTML = `
       <div class="timer">
       ${switchTimeOfDay(date.getHours())} <br>
@@ -53,8 +51,12 @@ window.addEventListener("DOMContentLoaded", () => {
       До нового года осталось ${getTimeRemaining()} дней <br>
       </div>
       `;
+      setInterval(() => {
+        render();
+      }, 1000);
     };
     render();
   };
+
   timer("1 jan 2021");
 });

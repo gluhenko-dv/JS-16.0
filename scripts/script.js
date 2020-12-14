@@ -36,7 +36,10 @@ window.addEventListener("DOMContentLoaded", () => {
         clearInterval(1);
       }
     };
+    updateClock();
     setInterval(() => updateClock(), 1000);
   };
+
   countTimer("15 dec 2020");
+
 });
