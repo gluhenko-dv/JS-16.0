@@ -55,7 +55,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //menu scrollIntoView
     const smoothScroll = (target) => {
+      console.log("target: ", target);
+
       const blockId = target.getAttribute("href");
+      console.log("blockId: ", blockId);
+
       document.querySelector("" + blockId).scrollIntoView({
         behavior: "smooth",
         block: "start",
@@ -63,7 +67,7 @@ window.addEventListener("DOMContentLoaded", () => {
     };
 
     body.addEventListener("click", (event) => {
-      const target = event.target;
+      let target = event.target;
 
       if (target.closest(".menu")) {
         handlerMenu();
@@ -71,6 +75,10 @@ window.addEventListener("DOMContentLoaded", () => {
         handlerMenu();
       } else if (target.closest("menu>ul>li")) {
         handlerMenu();
+        event.preventDefault();
+        smoothScroll(target);
+      } else if (target.closest("main>a")) {
+        target = target.closest("main>a");
         event.preventDefault();
         smoothScroll(target);
       } else if (
