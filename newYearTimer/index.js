@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 "use sctrict";
 window.addEventListener("DOMContentLoaded", () => {
   const timer = (deadline) => {
@@ -24,20 +25,20 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     };
     const switchDay = (day) => {
-      switch (true) {
-        case day === 0:
+      switch (day) {
+        case 0:
           return "Воскресенье";
-        case day === 1:
+        case 1:
           return "Понедельник";
-        case day === 2:
+        case 2:
           return "Вторник";
-        case day === 3:
+        case 3:
           return "Среда";
-        case day === 4:
+        case 4:
           return "Четверг";
-        case day === 5:
+        case 5:
           return "Пятница";
-        case day === 6:
+        case 6:
           return "Суббота";
       }
     };
