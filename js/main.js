@@ -9,17 +9,6 @@ class ToDo {
     this.todoData = new Map(JSON.parse(localStorage.getItem("toDoList")));
   }
 
-  /*   animateee = (item) => {
-        let opacity = 1;
-        let animate = requestAnimationFrame(animateee);
-        if (opacity !== 0) {
-          item.style.opacity = opacity;
-          opacity -= 0.05;
-        } else {
-          cancelAnimationFrame(animate);
-        }
-      } */
-
   addToStorage() {
     localStorage.setItem("toDoList", JSON.stringify([...this.todoData]));
   }
@@ -77,29 +66,9 @@ class ToDo {
     this.render();
   }
 
-  animateItem(item, key, func) {
-    let idAnimateTodo,
-      count = 1;
-
-    const animate = () => {
-      idAnimateTodo = requestAnimationFrame(animate);
-
-      if (count > 0) {
-        item.style.opacity = `${(count -= 0.05)}`;
-      } else {
-        cancelAnimationFrame(idAnimateTodo);
-        item.style.opacity = "";
-        func(key);
-      }
-    };
-
-    animate();
-  }
-
   deleteItem(key) {
     this.todoData.delete(key);
     this.addToStorage();
-    this.render();
   }
 
   completedItem(key) {
@@ -110,7 +79,6 @@ class ToDo {
       elem.completed = true;
     }
     this.addToStorage();
-    this.render();
   }
 
   editItem(item, key) {
@@ -124,22 +92,40 @@ class ToDo {
     this.render();
   }
 
+  animate(item) {
+    let opacity = 1, animate;
+
+    const anim = () => {
+      animate = requestAnimationFrame(anim);
+      if (opacity > 0) {
+        item.style.opacity = opacity;
+        opacity -= 0.02;
+      } else {
+        cancelAnimationFrame(animate);
+        this.render();
+      }
+    };
+
+    anim();
+  }
+
   handler() {
     const todoItem = document.querySelector(".todo-container");
 
     todoItem.addEventListener("click", (e) => {
       const target = e.target;
+      if (!target.closest(".todo-item")) return;
       const itemKey = target.closest(".todo-item").key;
-      let item = target.closest(".todo-item");
-      item = item.querySelector(".text-todo");
+      const item = target.closest(".todo-item");
+      const itemText = item.querySelector(".text-todo");
       if (target.closest(".todo-remove")) {
+        this.animate(item);
         this.deleteItem(itemKey);
       } else if (target.closest(".todo-complete")) {
-        //this.completedItem(itemKey);
-        this.animateItem(target, target.key, this.completedItem(itemKey));
+        this.animate(item);
+        this.completedItem(itemKey);
       } else if (target.closest(".todo-edit")) {
-        this.animateItem(target, target.key, this.completedItem.bind(this));
-        //this.editItem(item, itemKey);
+        this.editItem(itemText, itemKey);
       }
     });
   }
