@@ -73,7 +73,7 @@ window.addEventListener("DOMContentLoaded", () => {
         handlerMenu();
       } else if (target.closest(".close-btn")) {
         handlerMenu();
-      } else if (target.closest("menu>ul>li")) {
+      } else if (target.closest("menu>ul>li>a")) {
         handlerMenu();
         event.preventDefault();
         smoothScroll(target);
