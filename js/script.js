@@ -56,11 +56,12 @@ window.addEventListener("DOMContentLoaded", () => {
 
     addTodo(e) {
       e.preventDefault();
-      console.log(this.input.value.trim());
-      if (this.input.value.trim() === "") {
+      const value = this.input.value.trim();
+      if (value === "") {
         alert("Введи что ни будь :)");
+        return;
       }
-      if (this.input.value.trim()) {
+      if (value) {
         const newTodo = {
           value: this.input.value,
           completed: false,
