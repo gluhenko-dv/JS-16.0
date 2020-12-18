@@ -144,9 +144,8 @@ body {
 }
 
 .todo-buttons {
-    width: 100px;
-    height: 50px;
-
+    display: flex;
+    justify-content: flex-end;
     position: absolute;
     top: 0;
     right: 0;
@@ -155,7 +154,6 @@ body {
 .todo-buttons button {
     width: 50px;
     height: 50px;
-    float: left;
     background-color: transparent;
     background-position: center;
     background-repeat: no-repeat;
@@ -186,6 +184,10 @@ body {
 
 .todo-complete {
     background-image: url("../img/uncheck.png");
+}
+
+.todo-edit {
+    background-image: url("../img/pencil.png");
 }
 
 .todo-completed .todo-complete {
