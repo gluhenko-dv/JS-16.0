@@ -246,4 +246,42 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   };
   slider();
+  //изменение картинок наша команда
+  const toggleCommandImg = () => {
+    const command = document.querySelector("#command");
+    let imgSrc = "";
+    command.onmouseover = (e) => {
+      target = e.target;
+      const item = target.closest(".command__photo");
+      if (!item) return;
+      imgSrc = item.src;
+      item.src = item.dataset.img;
+    };
+    command.onmouseout = (e) => {
+      target = e.target;
+      const item = target.closest(".command__photo");
+      if (!item) return;
+      item.src = imgSrc;
+    };
+  };
+  toggleCommandImg();
+  //возврат строки с числами
+  const strWithNum = (str) => {
+    return str.replace(/\D/g, "");
+  };
+  //калькулятор
+  const calc = () => {
+    const calcSquare = document.querySelector(".calc-square"),
+      calcCount = document.querySelector(".calc-count"),
+      calcDay = document.querySelector(".calc-day"),
+      calcBlock = document.querySelector(".calc-block");
+    calcBlock.addEventListener("input", (e) => {
+      target = e.target;
+      const item = target.closest(".calc-item");
+      if (!item) return;
+      item.value = strWithNum(item.value);
+    });
+
+  };
+  calc();
 });
