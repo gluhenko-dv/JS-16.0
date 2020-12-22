@@ -277,12 +277,14 @@ window.addEventListener("DOMContentLoaded", () => {
       calcDay = document.querySelector(".calc-day"),
       totalValue = document.getElementById("total"),
       calcBlock = document.querySelector(".calc-block");
+
     calcBlock.addEventListener("input", (e) => {
-      target = e.target;
+      const target = e.target;
       const item = target.closest(".calc-item");
-      if (!item) return;
+      if (!item || target.matches(".calc-type")) return;
       item.value = strWithNum(item.value);
     });
+
     const countSum = () => {
       let total = 0,
         countValue = 1,
@@ -320,8 +322,8 @@ window.addEventListener("DOMContentLoaded", () => {
         }
       };
       animate = requestAnimationFrame(calcAnimate);
-
     };
+
     calcBlock.addEventListener("change", (e) => {
       const target = e.target;
       if (target.matches("select") || target.matches("input")) {
