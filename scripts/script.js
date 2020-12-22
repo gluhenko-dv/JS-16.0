@@ -55,10 +55,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //menu scrollIntoView
     const smoothScroll = (target) => {
-      console.log("target: ", target);
-
       const blockId = target.getAttribute("href");
-      console.log("blockId: ", blockId);
 
       document.querySelector("" + blockId).scrollIntoView({
         behavior: "smooth",
@@ -294,7 +291,6 @@ window.addEventListener("DOMContentLoaded", () => {
         countAnimate = 0;
 
       const typeValue = calcType.options[calcType.selectedIndex].value;
-      console.log("typeValue: ", typeValue);
       const squareValue = +calcSquare.value;
 
       if (calcCount.value > 1) {
@@ -308,14 +304,26 @@ window.addEventListener("DOMContentLoaded", () => {
       }
 
       if (typeValue && squareValue) {
-        total = price * typeValue * squareValue * countValue * dayValue;
+        total = Math.floor(
+          price * typeValue * squareValue * countValue * dayValue
+        );
       }
 
       const calcAnimate = () => {
         animate = requestAnimationFrame(calcAnimate);
-        if (countAnimate <= total) {
+        if (countAnimate < total) {
           totalValue.textContent = countAnimate;
-          countAnimate += 3;
+          switch (true) {
+            case total < 1000:
+              countAnimate += 11;
+              break;
+            case total < 10000:
+              countAnimate += 111;
+              break;
+            case total < 100000:
+              countAnimate += 1111;
+              break;
+          }
         } else {
           cancelAnimationFrame(animate);
           totalValue.textContent = total;
