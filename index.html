@@ -404,7 +404,79 @@
 			</div>
 		</div>
 	</div>
-<script src="/scripts/script.js"></script>
+	<script src="/scripts/script.js"></script>
+
+	<script src="/plugins/validator/validator.js"></script>
+	<script>
+		const form1Valid = new Validator({
+			selector: '#form1',
+			pattern: {
+				rusname: /^[а-яА-ЯёЁ0-9\s]+$/
+			},
+			method: {
+				'form1-name': [
+					['notEmpty'],
+					['pattern', 'rusname']
+				],
+				'form1-phone': [
+					['notEmpty'],
+					['pattern', 'phone']
+				],
+				'form1-email': [
+					['notEmpty'],
+					['pattern', 'email']
+				]
+			}
+		});
+		const form2Valid = new Validator({
+			selector: '#form2',
+			pattern: {
+				rusname: /^[а-яА-ЯёЁ0-9\s]+$/
+			},
+			method: {
+				'form2-name': [
+					['notEmpty'],
+					['pattern', 'rusname']
+				],
+				'form2-phone': [
+					['notEmpty'],
+					['pattern', 'phone']
+				],
+				'form2-email': [
+					['notEmpty'],
+					['pattern', 'email']
+				],
+				'form2-message': [
+					['notEmpty'],
+					['pattern', 'rusname']
+				]
+			}
+		});
+		const form3Valid = new Validator({
+			selector: '#form3',
+			pattern: {
+				rusname: /^[а-яА-ЯёЁ0-9\s]+$/
+			},
+			method: {
+				'form3-name': [
+					['notEmpty'],
+					['pattern', 'rusname']
+				],
+				'form3-phone': [
+					['notEmpty'],
+					['pattern', 'phone']
+				],
+				'form3-email': [
+					['notEmpty'],
+					['pattern', 'email']
+				]
+			}
+		});
+		form1Valid.init();
+		form2Valid.init();
+		form3Valid.init();
+	</script>
+
 </body>
 
 </html>
