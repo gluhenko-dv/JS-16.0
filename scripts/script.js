@@ -1,4 +1,5 @@
 /* eslint-disable arrow-parens */
+//check
 "use sctrict";
 window.addEventListener("DOMContentLoaded", () => {
   //hero timer
