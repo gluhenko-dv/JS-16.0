@@ -356,7 +356,19 @@ window.addEventListener("DOMContentLoaded", () => {
     const statusMessage = document.createElement("div");
     statusMessage.textContent = "Тут будет сообщение";
     const forms = document.querySelectorAll("form");
+    const allInputsForm = document.querySelectorAll("form input");
+    allInputsForm.forEach((item) => {
+      item.addEventListener("input", (e) => {
+        const target = e.target;
 
+        if (target.name === "user_name" || target.name === "user_message") {
+          target.value = target.value.replace(/[^а-яёА-ЯЁ\s]/gi, "");
+        }
+        if (target.name === "user_phone") {
+          target.value = target.value.replace(/[^0-9+]/gi, "");
+        }
+      });
+    });
     forms.forEach((form) => {
       form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -386,7 +398,6 @@ window.addEventListener("DOMContentLoaded", () => {
         );
       });
     });
-
 
     const postData = (body, outputData, errorData) => {
       const request = new XMLHttpRequest();
