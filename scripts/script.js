@@ -362,9 +362,14 @@ window.addEventListener("DOMContentLoaded", () => {
         const target = e.target;
 
         if (target.name === "user_name" || target.name === "user_message") {
+
           target.value = target.value.replace(/[^а-яёА-ЯЁ\s]/gi, "");
         }
         if (target.name === "user_phone") {
+          target.maxLength = 11;
+          if(target.value[0] === '+'){
+            target.maxLength = 12;
+          }
           target.value = target.value.replace(/[^0-9+]/gi, "");
         }
       });
@@ -374,10 +379,6 @@ window.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         form.appendChild(statusMessage);
         statusMessage.innerHTML = loadMessage;
-        if (!validStatus) {
-          statusMessage.textContent = validMessage;
-          return;
-        }
         const formData = new FormData(form);
         let body = {};
 
