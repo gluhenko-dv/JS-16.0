@@ -341,4 +341,72 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   };
   calc(100);
+  //отправка ajax
+  const sendForm = () => {
+    const errorMessage = "Что-то пошло не так...",
+      loadMessage = `<div class="spiner">
+      <div class="📦"></div>
+      <div class="📦"></div>
+      <div class="📦"></div>
+      <div class="📦"></div>
+      <div class="📦"></div>
+    </div>`,
+      succesMessage = "Спасибо! Мы скоро свяжемся с вами!",
+      validMessage = "Заполните поля корректно!";
+    const statusMessage = document.createElement("div");
+    statusMessage.textContent = "Тут будет сообщение";
+    const forms = document.querySelectorAll("form");
+
+    forms.forEach((form) => {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        form.appendChild(statusMessage);
+        statusMessage.innerHTML = loadMessage;
+        if (!validStatus) {
+          statusMessage.textContent = validMessage;
+          return;
+        }
+        const formData = new FormData(form);
+        let body = {};
+
+        formData.forEach((val, key) => {
+          body[key] = val;
+        });
+
+        postData(
+          body,
+          () => {
+            statusMessage.textContent = succesMessage;
+            form.reset();
+          },
+          (error) => {
+            statusMessage.textContent = errorMessage;
+            console.log(error);
+          }
+        );
+      });
+    });
+
+
+    const postData = (body, outputData, errorData) => {
+      const request = new XMLHttpRequest();
+      request.addEventListener("readystatechange", () => {
+        if (request.readyState !== 4) {
+          return;
+        }
+        if (request.status === 200) {
+          outputData();
+        } else {
+          errorData();
+        }
+      });
+
+      request.open("POST", "./server.php");
+      request.setRequestHeader("Content-Type", "application/json");
+
+      request.send(JSON.stringify(body));
+    };
+  };
+
+  sendForm();
 });

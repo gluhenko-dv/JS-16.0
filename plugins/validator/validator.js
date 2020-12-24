@@ -1,3 +1,5 @@
+
+let validStatus = false;
 class Validator {
   constructor({ selector, pattern = {}, method }) {
     this.form = document.querySelector(selector);
@@ -16,10 +18,13 @@ class Validator {
       elem.addEventListener("change", this.checkIt.bind(this))
     );
 
+
+
     this.form.addEventListener("submit", (e) => {
       this.elementsForm.forEach((elem) => this.checkIt({ target: elem }));
       if (this.error.size) {
         e.preventDefault();
+        validStatus = false;
       }
     });
   }
@@ -53,6 +58,7 @@ class Validator {
   checkIt(event) {
     const target = event.target;
     if (this.isValid(target)) {
+      validStatus = true;
       this.showSuccess(target);
       this.error.delete(target);
     } else {
