@@ -425,10 +425,6 @@ window.addEventListener("DOMContentLoaded", () => {
       setTimeout(function () {
         statusMessageText.textContent = "";
       }, 3000);
-      setTimeout(function () {
-        const popup = document.querySelector(".popup");
-        popup.style.display = `none`;
-      }, 4000);
     };
 
     forms.forEach((form) => {
@@ -453,6 +449,10 @@ window.addEventListener("DOMContentLoaded", () => {
           () => {
             statusMessage(succesMessage);
             form.reset();
+            setTimeout(function () {
+              const popup = document.querySelector(".popup");
+              popup.style.display = `none`;
+            }, 4000);
           },
           (error) => {
             statusMessage(errorMessage);
