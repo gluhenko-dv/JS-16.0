@@ -4,8 +4,8 @@
 
 :root {
   --duration: 1.5s;
-  --container-size: 250px;
-  --box-size: 33px;
+  --container-size: 200px;
+  --box-size: 20px;
   --box-border-radius: 25%;
 }
 
