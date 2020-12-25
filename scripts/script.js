@@ -343,6 +343,7 @@ window.addEventListener("DOMContentLoaded", () => {
   calc(100);
   //отправка ajax
   const sendForm = () => {
+    let validStatus = false;
     const errorMessage = "Что-то пошло не так...",
       loadMessage = `<div class="spiner">
       <div class="📦"></div>
@@ -356,31 +357,77 @@ window.addEventListener("DOMContentLoaded", () => {
     const statusMessage = document.createElement("div");
     statusMessage.textContent = "Тут будет сообщение";
     const forms = document.querySelectorAll("form");
-    const allInputsForm = document.querySelectorAll("form input");
-    allInputsForm.forEach((item) => {
-      item.addEventListener("input", (e) => {
-        const target = e.target;
 
-        if (target.name === "user_name" || target.name === "user_message") {
+    const validForms = () => {
+      const allInputsForm = document.querySelectorAll("form input");
+      allInputsForm.forEach((item) => {
+        item.addEventListener("input", (e) => {
+          const target = e.target;
 
-          target.value = target.value.replace(/[^а-яёА-ЯЁ\s]/gi, "");
-        }
-        if (target.name === "user_phone") {
-          target.maxLength = 11;
-          if(target.value[0] === '+'){
-            target.maxLength = 12;
+          const validError = () => {
+            target.style.borderBottom = `3px solid red`;
+            validStatus = false;
+          };
+
+          if (target.value.trim() === "") {
+            statusMessage.textContent = validMessage;
+            validError();
+            return;
           }
-          target.value = target.value.replace(/[^0-9+]/gi, "");
-        }
+
+          const validSucces = () => {
+            target.style.borderBottom = `3px solid green`;
+          };
+
+          if (target.name === "user_name") {
+            target.value = target.value.replace(/[^а-яёА-ЯЁ\s]/gi, "");
+          }
+          if (target.name === "user_phone") {
+            target.maxLength = 11;
+            if (target.value[0] === "+") {
+              target.maxLength = 12;
+            }
+            if (target.value.replace(/^\+?[78]([-()]*\d){10}$/, "") !== "") {
+              validError();
+            } else {
+              validSucces();
+            }
+            target.value = target.value.replace(/[^0-9+]/gi, "");
+          }
+
+          if (target.name === "user_email") {
+            if (target.value.replace(/^\w+@\w+\.\w{2,}$/, "") !== "") {
+              validError();
+              statusMessage.textContent = validMessage;
+            } else {
+              validSucces();
+            }
+          }
+
+          if(target.name === "user_message"){
+            target.value = target.value.replace(/[^а-яёА-ЯЁ\s\,\.\!\?\-]/gi, "");
+            validSucces();
+          }
+        });
       });
-    });
+    };
+
+    validForms();
+
     forms.forEach((form) => {
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         form.appendChild(statusMessage);
         statusMessage.innerHTML = loadMessage;
+
+        if (!validStatus) {
+          statusMessage.innerHTML = validMessage;
+          return;
+        }
+
         const formData = new FormData(form);
         let body = {};
+        console.log("+");
 
         formData.forEach((val, key) => {
           body[key] = val;
