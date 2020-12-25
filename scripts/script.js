@@ -43,7 +43,7 @@ window.addEventListener("DOMContentLoaded", () => {
     setInterval(() => updateClock(), 1000);
   };
   //конец hero timer
-  countTimer("16 dec 2020");
+  countTimer("1 jan 2021");
 
   //главное меню
   const toggleMenu = () => {
@@ -393,7 +393,6 @@ window.addEventListener("DOMContentLoaded", () => {
       const inputs = form.querySelectorAll("input");
       errorValid = (input) => {
         input.style.borderBottom = `4px solid red`;
-        console.log("input: ", input);
         input.setCustomValidity("Мне очень грустно, потому что ты ввел меня не правильно");
         input.reportValidity();
         validStatus = false;
@@ -457,7 +456,7 @@ window.addEventListener("DOMContentLoaded", () => {
           },
           (error) => {
             statusMessage(errorMessage);
-            console.log(error);
+            console.warn(error);
           }
         );
       });
