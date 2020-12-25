@@ -364,6 +364,7 @@ window.addEventListener("DOMContentLoaded", () => {
         item.addEventListener("input", (e) => {
           const target = e.target;
           target.style.border = `none`;
+          target.setCustomValidity('');
           if (target.name === "user_name") {
             target.value = target.value.replace(/[^а-яёА-ЯЁ\s]/gi, "");
           }
@@ -392,9 +393,13 @@ window.addEventListener("DOMContentLoaded", () => {
       const inputs = form.querySelectorAll("input");
       errorValid = (input) => {
         input.style.borderBottom = `4px solid red`;
+        console.log("input: ", input);
+        input.setCustomValidity("Мне очень грустно, потому что ты ввел меня не правильно");
+        input.reportValidity();
         validStatus = false;
       };
       inputs.forEach((input) => {
+
         if (input.value === "") {
           errorValid(input);
         }
@@ -408,6 +413,7 @@ window.addEventListener("DOMContentLoaded", () => {
             errorValid(input);
           }
         }
+
       });
       return validStatus;
     };
