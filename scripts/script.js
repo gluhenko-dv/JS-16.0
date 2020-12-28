@@ -249,14 +249,14 @@ window.addEventListener("DOMContentLoaded", () => {
     const command = document.querySelector("#command");
     let imgSrc = "";
     command.onmouseover = (e) => {
-      target = e.target;
+      const target = e.target;
       const item = target.closest(".command__photo");
       if (!item) return;
       imgSrc = item.src;
       item.src = item.dataset.img;
     };
     command.onmouseout = (e) => {
-      target = e.target;
+      const target = e.target;
       const item = target.closest(".command__photo");
       if (!item) return;
       item.src = imgSrc;
@@ -391,7 +391,7 @@ window.addEventListener("DOMContentLoaded", () => {
       let validStatus = true;
 
       const inputs = form.querySelectorAll("input");
-      errorValid = (input) => {
+      const errorValid = (input) => {
         input.style.borderBottom = `4px solid red`;
         input.setCustomValidity("Мне очень грустно, потому что ты ввел меня не правильно");
         input.reportValidity();
