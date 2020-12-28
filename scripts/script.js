@@ -364,7 +364,7 @@ window.addEventListener("DOMContentLoaded", () => {
         item.addEventListener("input", (e) => {
           const target = e.target;
           target.style.border = `none`;
-          target.setCustomValidity('');
+          target.setCustomValidity("");
           if (target.name === "user_name") {
             target.value = target.value.replace(/[^а-яёА-ЯЁ\s]/gi, "");
           }
@@ -393,12 +393,13 @@ window.addEventListener("DOMContentLoaded", () => {
       const inputs = form.querySelectorAll("input");
       const errorValid = (input) => {
         input.style.borderBottom = `4px solid red`;
-        input.setCustomValidity("Мне очень грустно, потому что ты ввел меня не правильно");
+        input.setCustomValidity(
+          "Мне очень грустно, потому что ты ввел меня не правильно"
+        );
         input.reportValidity();
         validStatus = false;
       };
       inputs.forEach((input) => {
-
         if (input.value === "") {
           errorValid(input);
         }
@@ -412,7 +413,6 @@ window.addEventListener("DOMContentLoaded", () => {
             errorValid(input);
           }
         }
-
       });
       return validStatus;
     };
@@ -444,41 +444,41 @@ window.addEventListener("DOMContentLoaded", () => {
           body[key] = val;
         });
 
-        postData(
-          body,
-          () => {
+        postData(body)
+          .then(() => {
             statusMessage(succesMessage);
             form.reset();
             setTimeout(function () {
               const popup = document.querySelector(".popup");
               popup.style.display = `none`;
             }, 4000);
-          },
-          (error) => {
+          })
+          .catch((error) => {
             statusMessage(errorMessage);
             console.warn(error);
-          }
-        );
+          });
       });
     });
 
     const postData = (body, outputData, errorData) => {
-      const request = new XMLHttpRequest();
-      request.addEventListener("readystatechange", () => {
-        if (request.readyState !== 4) {
-          return;
-        }
-        if (request.status === 200) {
-          outputData();
-        } else {
-          errorData();
-        }
+      return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        request.addEventListener("readystatechange", () => {
+          if (request.readyState !== 4) {
+            return;
+          }
+          if (request.status === 200) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
+
+        request.open("POST", "./server.php");
+        request.setRequestHeader("Content-Type", "application/json");
+
+        request.send(JSON.stringify(body));
       });
-
-      request.open("POST", "./server.php");
-      request.setRequestHeader("Content-Type", "application/json");
-
-      request.send(JSON.stringify(body));
     };
   };
 
