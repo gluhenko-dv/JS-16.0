@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const select = document.getElementById("cars"),
     output = document.getElementById("output");
 
-  const promise = (url) => {
-    return new Promise((resolve, reject) => {
-      select.addEventListener("change", () => {
+  select.addEventListener("change", () => {
+    const promise = (url) => {
+      return new Promise((resolve, reject) => {
         const request = new XMLHttpRequest();
         request.open("GET", url);
         request.setRequestHeader("Content-type", "application/json");
@@ -22,8 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         request.send();
       });
-    });
-  };
+    };
+    const url = "./cars.json";
+    promise(url)
+      .then(outputMsg)
+      .catch((error) => (output.innerHTML = `Произошла ошибка ${error}`));
+  });
 
   const outputMsg = (data) => {
     data.cars.forEach((item) => {
@@ -34,8 +38,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   };
-  const url = "./cars.json";
-  promise(url)
-    .then(outputMsg)
-    .catch((error) => (output.innerHTML = `Произошла ошибка ${error}`));
 });
