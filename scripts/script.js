@@ -445,7 +445,10 @@ window.addEventListener("DOMContentLoaded", () => {
         });
 
         postData(body)
-          .then(() => {
+          .then((response) => {
+            if (response.status !== 200) {
+              throw new Error("status network not 200");
+            }
             statusMessage(succesMessage);
             form.reset();
             setTimeout(function () {
@@ -460,7 +463,14 @@ window.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    const postData = (body, outputData, errorData) => {
+    const postData = (body) => {
+      return fetch("./server.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
       return new Promise((resolve, reject) => {
         const request = new XMLHttpRequest();
         request.addEventListener("readystatechange", () => {
