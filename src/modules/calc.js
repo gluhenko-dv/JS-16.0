@@ -29,7 +29,7 @@ const calc = (price = 100) => {
     const squareValue = +calcSquare.value;
 
     if (calcCount.value > 1) {
-      countValue += (calcCount.value - 1) / 10;
+      countValue = (calcCount.value - 1) / 10;
     }
 
     if (calcDay.value && calcDay.value < 5) {
@@ -58,6 +58,9 @@ const calc = (price = 100) => {
           case total < 100000:
             countAnimate += 1111;
             break;
+          case total > 100000:
+            countAnimate += 111111;
+            break;
         }
       } else {
         cancelAnimationFrame(animate);
@@ -70,9 +73,15 @@ const calc = (price = 100) => {
   calcBlock.addEventListener("change", (e) => {
     const target = e.target;
     if (target.matches("select") || target.matches("input")) {
-      countSum();
+      if (target.value === "") {
+        calcSquare.value = "";
+        calcDay.value = "";
+        calcCount.value = "";
+        totalValue.textContent = "0";
+      } else {
+        countSum();
+      }
     }
   });
 };
-
 export default calc;
