@@ -124,24 +124,6 @@ const sendForm = () => {
       },
       body: JSON.stringify(body),
     });
-    return new Promise((resolve, reject) => {
-      const request = new XMLHttpRequest();
-      request.addEventListener("readystatechange", () => {
-        if (request.readyState !== 4) {
-          return;
-        }
-        if (request.status === 200) {
-          resolve();
-        } else {
-          reject();
-        }
-      });
-
-      request.open("POST", "./server.php");
-      request.setRequestHeader("Content-Type", "application/json");
-
-      request.send(JSON.stringify(body));
-    });
   };
 };
 
