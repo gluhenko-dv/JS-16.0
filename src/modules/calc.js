@@ -29,7 +29,7 @@ const calc = (price = 100) => {
     const squareValue = +calcSquare.value;
 
     if (calcCount.value > 1) {
-      countValue = (calcCount.value - 1) / 10;
+      countValue += (calcCount.value - 1) / 10;
     }
 
     if (calcDay.value && calcDay.value < 5) {

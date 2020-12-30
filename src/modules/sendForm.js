@@ -56,6 +56,11 @@ const sendForm = () => {
       if (input.value === "") {
         errorValid(input);
       }
+      if (input.name === "user_name") {
+        if (input.value.length < 2) {
+          errorValid(input);
+        }
+      }
       if (input.name === "user_phone") {
         if (input.value.replace(/^\+?[78]([-()]*\d){10}$/, "") !== "") {
           errorValid(input);
@@ -72,12 +77,12 @@ const sendForm = () => {
 
   const statusMessage = (status) => {
     statusMessageText.style.color = `white`;
-    statusMessageText.style.fontSize = `14px`;
+    statusMessageText.style.fontSize = `18px`;
     statusMessageText.textContent = "Тут будет сообщение";
     statusMessageText.innerHTML = status;
     setTimeout(function () {
       statusMessageText.textContent = "";
-    }, 3000);
+    }, 5000);
   };
 
   forms.forEach((form) => {
