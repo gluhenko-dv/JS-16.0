@@ -6,6 +6,7 @@ import togglePopup from "./modules/togglePopup";
 import tabs from "./modules/tabs";
 import slider from "./modules/slider";
 import toggleCommandImg from "./modules/toggleCommandImg";
+import toggleCommandImg from "./modules/toggleCommandImg";
 import calc from "./modules/calc";
 import sendForm from "./modules/sendForm";
 
